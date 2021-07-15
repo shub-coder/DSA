@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int lcspan(int t[],int sum, int n)
+{
+    unordered_map<int, int>m;
+    int pre_sum=0, res=0;
+    for(int i=0; i<n; i++)
+    {
+        pre_sum=pre_sum+t[i];
+        if(pre_sum==sum)
+           res=i+1;
+        if(m.find(pre_sum)==m.end())
+           m.insert({pre_sum,i});   
+        if(m.find(pre_sum)!=m.end())
+           res  =max(res, i-m[pre_sum-sum]);   
+
+    }
+    return res;
+}
+int main()
+{
+    int n;
+    int sum;
+    cin>>n;
+    cin>>sum;
+    int a[n];
+    int b[n];
+    for(int i=0; i<n;i++)
+    {
+        cin>>a[i];
+    }
+    for(int i=0; i<n;i++)
+    {
+        cin>>b[i];
+    }
+    int t[n];
+    for(int i=0;i<n; i++)
+    {
+        t[i]=a[i]-b[i];
+    }
+    cout<<lcspan(t,sum, n);
+    return 0;
+}
